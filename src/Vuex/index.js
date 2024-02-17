@@ -1,6 +1,8 @@
-import { Store } from './store.js'
-import { install } from './mixin.js'
+// src/vuex/index.js
+
+import { Store, install } from "./store";
+
 export default {
-    Store,
-    install
-}
+  Store,
+  install,
+};

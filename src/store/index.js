@@ -1,44 +1,37 @@
-import Vue from "vue";
-// import Vuex from '../Vuex'
-import Vuex from "vuex";
+// src/store/index.js
 
-import moduleA from "./moduleA";
-import moduleB from "./moduleB";
+import Vue from "vue";
+import Vuex from "@/vuex";
+
+// 引入两个测试模块
+import moduleA from './moduleA'
+import moduleB from './moduleB'
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-        count: 0,
-      num:1
+    num: 10,
   },
   getters: {
-    count1(state) {
-      console.log("缓存了嘛？");
-
-      return state.count + 100;
-    },
-    count2(state) {
-      return state.count + 200;
+    getPrice(state) {
+      return state.num * 10;
     },
   },
+  // 同步更新状态
   mutations: {
-    increment(state, data) {
-      state.count += data;
+    changeNum(state, payload) {
+      state.num += payload;
     },
-    decrement(state, data) {
-      state.count -= data;
-      },
-      changeNum(state, data) {
-        state.num += data
-    }
   },
+  // 可执行异步操作，通过 mutations 更新状态
   actions: {
-    increment(context, data) {
+    changeNum({ commit }, payload) {
       setTimeout(() => {
-        context.commit("increment", data);
-      }, 1500);
+        commit("changeNum", payload);
+      }, 1000);
     },
   },
+  // 在根模块下注册子模块 A、B
   modules: {
     moduleA,
     moduleB,

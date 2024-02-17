@@ -1,19 +1,21 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-   <h2>{{ $store.state.count }}</h2>
-   <button @click="$store.state.count = 999">点击</button>
-   <h1>getters:{{ $store.getters.count1 }}</h1>
-   <h1>getters:{{ $store.getters.count1 }}</h1>
-   <h1>getters:{{ $store.getters.count2 }}</h1>
-   <button @click="$store.commit('increment',1)">同步点击+1</button>
-   <button @click="$store.commit('decrement',1)">同步点击-1</button>
-   <button @click="$store.dispatch('increment',20)">异步点击+20</button>
-   <h1>本体的数据：{{ this.$store.state.num }}</h1>
-   <h1>模块化的数据：{{ this.$store.state.moduleA.num }}</h1>
-   <h1>模块化的数据：{{ this.$store.state.moduleB.num }}</h1>
-   <button @click="$store.commit('moduleA/changeNum',10)">模块化的修改</button>
-   <button @click="$store.commit('moduleB/changeNum', 20)">模块化的修改</button>
+    <br> 根模块测试： <br>
+    商品数量: {{this.$store.state.num}} 个<br>
+    商品单价: 10 元<br>
+    订单金额: {{this.$store.getters.getPrice}} 元<br>
+    <button @click="$store.commit('changeNum',5)">同步更新：数量+5</button>
+    <button @click="$store.dispatch('changeNum',-5)">异步更新：数量-5</button>
+
+    <br> 子模块测试： <br>
+    A 模块-商品数量: {{this.$store.state.moduleA.num}} 个<br>
+    B 模块-商品数量: {{this.$store.state.moduleB.num}} 个<br>
+    C 模块-商品数量: {{this.$store.state.moduleA.moduleC.num}} 个<br>
+    <button @click="$store.commit('moduleA/changeNum',5)">A 模块-同步更新：数量+5</button>
+    <button @click="$store.commit('moduleB/changeNum',5)">B 模块-同步更新：数量+5</button>
+    <button @click="$store.commit('moduleA/moduleC/changeNum',5)">C 模块-同步更新：数量+5</button>
+
+
   </div>
 </template>
 
@@ -24,13 +26,11 @@ export default {
     msg: String
   },
   mounted() {
-    // console.log('home mounted:如果有值就代表传递下去了',this.$store);
-    
+    console.log('home mounted:如果有值就代表传递下去了', this.$store);
+
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
+<style scoped></style>
